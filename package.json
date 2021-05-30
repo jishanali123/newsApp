@@ -1,0 +1,17 @@
+{
+  "name": "newapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "proxy": "https://localhost:5000",
+  "author": "Jishan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "newsapi": "^2.4.1"
+  }
+}
