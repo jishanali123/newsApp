@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Row, Spin, Empty } from 'antd';
+import { Row, Spin } from 'antd';
 import './NewsList.css';
 import News from '../news/News';
 import Filter from '../filter/Filter';
@@ -15,7 +15,7 @@ export default class NewsList extends Component {
         this.state = {
             data: data,
             filter: {
-                country: 'us',
+                country: 'UK',
                 category: 'everything',
                 search: '',
             },
@@ -28,7 +28,6 @@ export default class NewsList extends Component {
         this.setLoading(true);
         axios.get('http://localhost:5000/topHeadlines')
             .then((data) => {
-                console.log("data.data:", data.data);
                 this.setState({
                     data: data.data,
                     loading: false,
@@ -46,7 +45,6 @@ export default class NewsList extends Component {
             this.setLoading(true);
             axios.get('http://localhost:5000/topHeadlines')
                 .then((data) => {
-                    console.log("data1.data1:", data.data);
                     this.setState({
                         data: data.data,
                         loading: false,
@@ -84,7 +82,6 @@ export default class NewsList extends Component {
                 country: value || 'gb'
             })
                 .then((data) => {
-                    console.log("data.data:", data.data);
                     this.setState({
                         data: data.data,
                         cleared: false,
@@ -105,7 +102,6 @@ export default class NewsList extends Component {
                 category: value || 'general'
             })
                 .then((data) => {
-                    console.log("data.data:", data.data);
                     this.setState({
                         data: data.data,
                         cleared: false,
@@ -126,7 +122,6 @@ export default class NewsList extends Component {
                 search: value || 'bitcoin'
             })
                 .then((data) => {
-                    console.log("data.data:", data.data);
                     this.setState({
                         data: data.data,
                         cleared: false,
@@ -144,11 +139,10 @@ export default class NewsList extends Component {
 
     render() {
         const { data, filter, loading } = this.state;
-        const { status, totalResults, articles, sources } = data;
+        const { status, articles, sources } = data;
         const result = articles || sources
         let content = '';
         if (status === 'ok') {
-            console.log('result:', result);
             content = result.map((item) => {
                 return (
                     <News
@@ -157,7 +151,6 @@ export default class NewsList extends Component {
                 );
             });
         } else {
-            console.log('fkdhhhkfhsffgj,f', data);
             content = (<Error
                 data={data}
             />)

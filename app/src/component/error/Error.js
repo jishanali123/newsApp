@@ -1,6 +1,6 @@
 import React from 'react';
 import './Error.css';
-import { Empty, Image } from 'antd';
+import { Image } from 'antd';
 
 const Error = (props) => {
     const { data } = props;

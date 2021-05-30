@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Input, Space } from 'antd';
+import { Select, Input } from 'antd';
 import { COUNTRY_PLACEHOLDER, CATEGORY_PLACEHOLDER, SEARCH_PLACEHOLDER } from './Filter.constant';
 
 const { Search } = Input;
@@ -13,26 +13,26 @@ const Filter = (props) => {
 
     return (
         <div style={{ display: 'flex', padding: 5 }}>
-            <Select 
-            defaultValue={country} 
-            placeholder={COUNTRY_PLACEHOLDER}
-            style={{ width: 300, marginRight: 10 }} 
-            onChange={onCountryChange} 
-            allowClear
-            onClear={onSelectClear}
+            <Select
+                defaultValue={country}
+                placeholder={COUNTRY_PLACEHOLDER}
+                style={{ width: 300, marginRight: 10 }}
+                onChange={onCountryChange}
+                allowClear
+                onClear={onSelectClear}
             >
                 <Option value="us">USA</Option>
                 <Option value="gb">UK</Option>
                 <Option value="cn">China</Option>
                 <Option value="in">India</Option>
             </Select>
-           
-            <Select 
-            placeholder={CATEGORY_PLACEHOLDER}
-            style={{ width: 300, marginRight: 10 }} 
-            onChange={onCategoryChange} 
-            allowClear
-            onClear={onSelectClear}
+
+            <Select
+                placeholder={CATEGORY_PLACEHOLDER}
+                style={{ width: 300, marginRight: 10 }}
+                onChange={onCategoryChange}
+                allowClear
+                onClear={onSelectClear}
             >
                 <Option value="business">Business</Option>
                 <Option value="entertainment">Entertainment</Option>
@@ -42,11 +42,11 @@ const Filter = (props) => {
                 <Option value="sports">Sports</Option>
                 <Option value="technology">Technology</Option>
             </Select>
-            <Search 
-            placeholder={SEARCH_PLACEHOLDER}
-            onSearch={onSearchChange}
-            enterButton 
-            allowClear
+            <Search
+                placeholder={SEARCH_PLACEHOLDER}
+                onSearch={onSearchChange}
+                enterButton
+                allowClear
             />
         </div>
     );

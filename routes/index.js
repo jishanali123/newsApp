@@ -1,9 +1,10 @@
 const express = require('express');
+// const https = require('https');
+const path = require('path');
 const router = express.Router();
 const NewsAPI = require('newsapi');
 // const newsapi = new NewsAPI('f078ce65f8bf4d7a9350b4ed571c3832');
 const newsapi = new NewsAPI('4e571a41c07a46528dc8f07add944338');
-// const https = require('https');
 
 // root path will serve our react app from build folder
 router.get('/', (req, res) => {
@@ -35,10 +36,9 @@ router.route('/topHeadlines')
         newsapi.v2.topHeadlines({
             country: 'gb'
         }).then(response => {
-            console.log('s:', response);
             res.json(response);
         }).catch((error) => {
-            console.log('s:', error);
+            console.log(error);
             res.json(error);
         });
 
