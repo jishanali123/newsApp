@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Row, Spin } from 'antd';
 import './NewsList.css';
+import { TOPHEADLINES, SOURCES, EVERYTHING, GET, POST } from './NewsList.constant';
 import News from '../news/News';
 import Filter from '../filter/Filter';
 import Header from '../header/Header';
@@ -26,36 +27,31 @@ export default class NewsList extends Component {
 
     componentDidMount() {
         this.setLoading(true);
-        axios.get('http://localhost:5000/topHeadlines')
+        this.getAxiosUtil(TOPHEADLINES, GET);
+    }
+
+    componentDidUpdate() {
+        const { cleared, loading } = this.state;
+        if (cleared && !loading) {
+            this.getAxiosUtil(TOPHEADLINES, GET);
+        }
+    }
+
+    getAxiosUtil = (url, httpMethod, postParam) => {
+        const getOrPost = httpMethod === GET ? axios.get(url) : axios.post(url, postParam);
+        this.setLoading(true);
+        getOrPost
             .then((data) => {
                 this.setState({
                     data: data.data,
                     loading: false,
+                    cleared: false,
                 });
             })
             .catch((err) => {
                 console.log(err);
                 this.setLoading(false);
             });
-    }
-
-    componentDidUpdate() {
-        const { cleared, loading } = this.state;
-        if (cleared && !loading) {
-            this.setLoading(true);
-            axios.get('http://localhost:5000/topHeadlines')
-                .then((data) => {
-                    this.setState({
-                        data: data.data,
-                        loading: false,
-                        cleared: false,
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.setLoading(false);
-                });
-        }
     }
 
     setLoading = (value) => {
@@ -77,61 +73,25 @@ export default class NewsList extends Component {
 
     onCountryChange = (value) => {
         if (value && value !== '') {
-            this.setLoading(true);
-            axios.post('http://localhost:5000/topHeadlines', {
+            this.getAxiosUtil(TOPHEADLINES, POST, {
                 country: value || 'gb'
-            })
-                .then((data) => {
-                    this.setState({
-                        data: data.data,
-                        cleared: false,
-                        loading: false,
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.setLoading(false);
-                });
+            });
         }
     }
 
     onCategoryChange = (value) => {
         if (value && value !== '') {
-            this.setLoading(true);
-            axios.post('http://localhost:5000/sources', {
+            this.getAxiosUtil(SOURCES, POST, {
                 category: value || 'general'
-            })
-                .then((data) => {
-                    this.setState({
-                        data: data.data,
-                        cleared: false,
-                        loading: false,
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.setLoading(false);
-                });
+            });
         }
     }
 
     onSearchChange = (value) => {
         if (value && value !== '') {
-            this.setLoading(true);
-            axios.post('http://localhost:5000/everything', {
+            this.getAxiosUtil(EVERYTHING, POST, {
                 search: value || 'bitcoin'
-            })
-                .then((data) => {
-                    this.setState({
-                        data: data.data,
-                        cleared: false,
-                        loading: false,
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.setLoading(false);
-                });
+            });
         } else {
             this.onSelectClear();
         }
