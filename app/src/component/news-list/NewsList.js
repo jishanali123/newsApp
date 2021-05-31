@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Row, Spin } from 'antd';
+import { Row, Spin, Empty } from 'antd';
 import './NewsList.css';
 import { TOPHEADLINES, SOURCES, EVERYTHING, GET, POST } from './NewsList.constant';
 import News from '../news/News';
@@ -111,7 +111,7 @@ export default class NewsList extends Component {
         const { status, articles, sources } = data;
         const result = articles || sources
         let content = '';
-        if (status === 'ok') {
+        if (status === 'ok' && result.length) {
             content = result.map((item) => {
                 return (
                     <News
@@ -119,6 +119,12 @@ export default class NewsList extends Component {
                     />
                 );
             });
+        } else if (status === 'ok' && !result.length) {
+            content = (
+                <div class="spin">
+                    <Empty />
+                </div>
+            );
         } else {
             content = (<Error
                 data={data}
