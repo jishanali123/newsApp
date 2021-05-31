@@ -52,6 +52,15 @@ export default class NewsList extends Component {
                 console.log(err);
                 this.setLoading(false);
             });
+
+        /* with async await
+            try {
+                const response = await getOrPost;
+                console.log(response);
+            } catch (error) {
+                console.error(error);
+            }
+        */
     }
 
     setLoading = (value) => {
